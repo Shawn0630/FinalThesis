@@ -1,0 +1,58 @@
+\begin{lemma}
+Given a tree A of the form $l(A_1 \comp \cdots \comp A_n)$, for any strategy we have
+\begin{equation*}
+\#rel(A) \geq \left\vert A \right\vert - \left\vert A_i \right\vert + \#rel(A_1) + \cdots + \#rel(A_n)
+\end{equation*}
+, where $i \in [1 \cdots n]$ is such that the size of $A_i$ is maximal.
+\end{lemma}
+
+\begin{proof}
+Let $F = A_1 \comp \cdots \comp A_n$. We first prove that 
+\begin{equation}
+\#rel(F) \geq \left\vert F \right\vert - \left\vert A_i \right\vert + \#rel(A_1) + \cdots \#rel(A_n).
+\end{equation}
+if the size of forest is 1, then we have
+\begin{equation*}
+rel(F) \geq \left\vert F \right\vert = 1
+\end{equation*}
+if the size of forest is greater than 1, assume that a left decomposition is applied to F. Let F be of the form $l(g) \comp t$, where $A_1 = l(g)$ and $t = A_2 \comp \cdots \comp A_n$. By Lemma 3.1.2, we have
+\begin{equation}
+R(F) = \{F\} \cup R(A_1) \cup R(t) \cup R(g \comp t)
+\end{equation}
+From Equation 3.2, the number of relevant sub-forests can be estimated.
+\begin{equation}
+\#rel(F) = 1 + \#rel(A_1) + \#rel(t) + \#rel(g \comp t)
+\end{equation}
+Applying induction hypothesis for $g \comp t$ on $R(g \comp t)$, then we have
+\begin{equation}
+\#rel(g \comp t) \geq  \#rel{g} + \#rel(t) \geq \left\vert g \right\vert + \left\vert t \right\vert \geq min\{\left\vert g \right\vert , \left\vert t \right\vert\}
+\end{equation}
+Therefore, Equation 3.3 implies
+\begin{equation}
+\#rel(F) \geq 1 + \#rel(A_1) + \#rel(t) + min\{\left\vert g \right\vert , \left\vert t \right\vert \}
+\end{equation}
+Let $j \in [2 \cdots n]$ such that $A_j$ has the maximal size among $\{A_2 \cdots A_n\}$. Applying induction hypothesis for t, we have $\#rel(t) \geq \left\vert t \right\vert - \left\vert A_j \right\vert + \#rel(A_2) + \cdots + \#rel(A_n)$. Therefore, Equation 3.5 becomes,
+\begin{equation}
+\#rel(F) \geq 1 + \#rel(A_1) + \cdots + \#rel(A_n) + \left\vert t \right\vert -  \left\vert A_j \right\vert + min\{\left\vert g \right\vert , \left\vert t \right\vert \}
+\end{equation}
+To establish Equation 3.1, it remains to verify that 
+\begin{equation}
+1 + \left\vert t \right\vert - \left\vert A_j \right\vert + min\{\left\vert g \right\vert , \left\vert t \right\vert \} \geq \left\vert F \right\vert - \left\vert A_i \right\vert
+\end{equation}
+To verify Equation 3.7, two cases are needed to discuss, depending on the size of $g$ and $t$. In the first case where $\left\vert g \right\vert \leq \left\vert t \right\vert$, then we have 
+\begin{equation}
+1 + \left\vert t \right\vert + \left\vert g \right\vert = \left\vert F \right\vert
+\end{equation}
+Since we know $i \in [1 \cdots n]$ such that $A_i$ has the maximal size among $\{A_1 \cdots A_n\}$, while $j \in [2 \cdots n]$. In other words, we have
+\begin{equation}
+\left\vert A_j \right\vert \leq \left\vert A_i \right\vert 
+\end{equation}
+
+The naive algorithm runs in $\mathcal{O}(m^2n^2)$, where m and n are the size of tree respectively. In contrast to Tai's algorithm ~\cite{tai1979tree}, which computes the distance by enumerating sub-forests in preorder and runs in $\mathcal{O}(m^3n^3)$ time, this algorithm enumerate sub-forests in postorder. Please note that although the algorithm returns the distance of two input tree, the naive algorithm does not compute the true distance of each partial trees in given trees as it only considers the optimal mapping along a pair for each pair of partial trees. If this algorithm is applied for each pairs of sub-trees, the time complexity is $\mathcal{O}(m^3n^3)$, which is same as that of Tai's algorithm.
+
+
+
+
+ However, any nucleotide can participate in more than one pair, which creates the tertiary structure. To simplify, we don't consider the tertiary structure of RNA in this thesis and assume that any nucleotide participates in at most one such pair and the bonded pairs are non-crossing. 
+
+In this thesis, a program is designed to compute the similarity between two RNA, which help biologist understand their comparative functions. The computation of the similarity of two RNA is actually the computation of that of two trees as RNA can be represented as a tree. One way to compare two trees is to compute the edit distance between them.

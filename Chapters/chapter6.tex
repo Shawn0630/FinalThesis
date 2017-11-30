@@ -1,0 +1,11 @@
+\doublespacing
+\chapter{Conclusion}
+In this thesis, we have studied the topic of tree edit distance computation. After the definition of tree edit distance, we have given an overview of existing approaches for tree edit distance and their decomposition strategies, including leftmost paths decomposition, rightmost paths decomposition, heavy path decomposition on one tree and that on both trees as well. These methods take advantage of the overlap among sub-forests that are contained in the same sub-tree, and the overlap of sub-trees in different ways. 
+
+We proposed a new algorithm to find the optimal root-leaf path decomposition that avoid redundant computation. The algorithm uses dynamic programming and is implemented using C++. An overview description and some detailed implementations have been illustrated in Chapter 2.
+
+Another algorithmic improvement can be applied to our algorithm to reduce time complexity. We compressed the non-branching nodes to a single node to compress tree in the vertical direction. After the vertical reduction, the compressed trees then are used for computation. The detailed implementations are shown in Chapter 3.
+
+RNA secondary structure similarity comparison is an application of our algorithm. We test our algorithm on the Ribonuclease P Database and evaluation the time complexity by counting the relevant sub-problem and mark the actual run time. According the test result, our algorithm is by far the best decomposition strategy for trees. 
+ 
+A lot of research remains to be done. Our results are good but we hope to improve them. 
