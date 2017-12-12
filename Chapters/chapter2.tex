@@ -89,31 +89,31 @@ Before we study the recursive decomposition in the tree edit distance problem, w
 The edit distance between two strings $S_1$ and $S_2$ can be computed by equation as follows:
 \begin{align}
 d(S_1, S_2) = min \begin{cases}
-	  	\delta(S_1 - u , S_2) + \delta(u, \varnothing) \\ 
-      	\delta(S_1, S_2 - v) + \delta(\varnothing, v) \\ 
-    	\delta(S_1 - u, S_2 - v) + \delta(u, v) & \\ 
+	  	d(S_1 - u , S_2) + \delta(u, \varnothing) \\ 
+      	d(S_1, S_2 - v) + \delta(\varnothing, v) \\ 
+    	d(S_1 - u, S_2 - v) + \delta(u, v) & \\ 
     \end{cases}
 \end{align}
 
-It is a right decomposition if and only if $u$ and $v$ are both the last element of the string $S_1$ and $S_2$. Similarly, when $u$ and $v$ are both the first element of the string $S_1$ and $S_2$, it is a left decomposition. Implementation of the string edit distance is completed with a two-dimensional table, which gives a $\mathcal{O}(n^2)$ solution.
+It is a right decomposition if and only if $u$ and $v$ are both the last element of the string $S_1$ and $S_2$. Similarly, when $u$ and $v$ are both the first element of the string $S_1$ and $S_2$, it is a left decomposition. Implementation of the string edit distance is the completion with a two-dimensional table, which gives a $\mathcal{O}(n^2)$ solution.
 
 Analogous to the string edit distance problem, the tree edit distance can be solved in a recursive decomposition way. To compute the tree edit distance,  the roots of the trees are the first elements to decompose. The Equation 2.2 computes the tree-to-tree distance.
 
 Let $T_1$ and $T_2$ are both trees, 
 \begin{align}
 d(T_1, T_2) = min \begin{cases}
-	  	\delta(T_1 - r(T_1) , T_2) + \delta(r(T_1), \varnothing) \\ 
-      	\delta(T_1, T_2 - r(T_2)) + \delta(\varnothing, r(T_2)) \\ 
-    	\delta(T_1 - r(T_1), T_2 - r(T_2)) + \delta(r(T_1), r(T_2)) & \\
+	  	d(T_1 - r(T_1) , T_2) + \delta(r(T_1), \varnothing) \\ 
+      	d(T_1, T_2 - r(T_2)) + \delta(\varnothing, r(T_2)) \\ 
+    	d(T_1 - r(T_1), T_2 - r(T_2)) + \delta(r(T_1), r(T_2)) & \\
     \end{cases}
 \end{align}
 
 The decomposition to trees create sub-problems for forests($T_1 - r(T_1), T_2 - r(T_2)$). Similar to the Equation 2.1 for the calculation of the string edit distance, let $F_1$ and $F_2$ are both forests and $u$ and $v$ are nodes in forest $F_1$ and $F_2$ respectively, the forest-to-forest distance can be computed by equation as follows: 
 \begin{align}
 d(F_1, F_2) = min \begin{cases}
-	  	\delta(F_1 - u , F_2) + \delta(u, \varnothing) \\ 
-      	\delta(F_1, F_2 - v) + \delta(\varnothing, v) \\ 
-    	\delta(F_1 - F(u), F_2 - F(v)) + \delta(F(u), F(v))& \\ 
+	  	d(F_1 - u , F_2) + \delta(u, \varnothing) \\ 
+      	d(F_1, F_2 - v) + \delta(\varnothing, v) \\ 
+    	d(F_1 - F(u), F_2 - F(v)) + \delta(F(u), F(v))& \\ 
     \end{cases}
 \end{align}
 
@@ -426,7 +426,7 @@ The tree edit distance problem can be solved in $\mathcal{O}(mn)$ space, where $
 Dynamic programming method is used to implement, which fills out two $m \times n$ tables. One permanent matrix stores the tree-tree distance and the other temporary matrix stores the forest-forest distance. The temporary forest-forest distance matrix can be overwritten when the computation moves from one pair of relevant sub-trees to another pair. Besides, the permanent tree-tree distance matrix are fetched for use in computing forest-forest distances.
 \end{proof}
 \section{Klein's Algorithm}
-Zhang and Shasha's algorithm improves the time complexity by taking the advantage of the overlap of  sub-forests with the same leftmost root. However, the running time can be improved in some trees as it is dependent on the shapes of the trees. Kelvin~\cite{klein1998computing} explored and designed a new decomposition strategy based on a type of path called "heavy path". Zhang and Shasha's algorithm ignores shapes of trees and fixes the direction in each decomposition steps while the direction may change in each steps according to different tree shapes. 
+Zhang and Shasha's algorithm improves the time complexity by taking the advantage of the overlap of  sub-forests with the same leftmost root. However, the running time can be improved in some trees as it is dependent on shapes of trees. Kelvin~\cite{klein1998computing} explored and designed a new decomposition strategy based on a type of path called "heavy path". Zhang and Shasha's algorithm ignores shapes of trees and fixes the direction in each decomposition steps while the direction may change in each steps according to different tree shapes. 
 
 Heavy child and heavy paths was first introduced by Harel and Tarjan\cite{harel1984fast}. The definition is as follows.
 
