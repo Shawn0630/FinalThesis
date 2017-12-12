@@ -82,8 +82,10 @@ Figure 5.4 is an example of RNA files in the database. The RNA name is "A.tumefa
 
 We use the information from RNA files to construct trees. Then the problem of comparing the similarity between two RNA secondary structures becomes comparing the edit distance between two trees. Our algorithms in Chapter 3 and 4 can help solve the problem. 
 
+Another dataset we use in our experiments 
+
 \section{Some Experimental Result}
-In our experiments, we compute alignments between RNA secondary structure from Ribonuclease P Database. Figures 5.6 and 5.7 show two RNA structures in string representation. On the other hand, the corresponding graph representations are shown in Figures 5.8 and 5.9. We notice that the raw data contains tertiary structures. Therefore, we first remove the tertiary structures before constructing the corresponding tree data structure. Figure 5.10 shows  the alignment results where the cost of each valid operation(deletion, insertion and substitution) is 1.
+In our experiments, we compute alignments between RNA secondary structure from Ribonuclease P Database. Figures 5.6 and 5.7 show two RNA structures in string representation. On the other hand, the corresponding graph representations are shown in Figures 5.8 and 5.9. We notice that the raw data contains tertiary structures. Therefore, we first remove the tertiary structures before constructing the corresponding tree data structure. Figure 5.10 shows the alignment results where the cost of each valid operation(deletion, insertion and substitution) is 1.
 
 \begin{figure}
 		\centering
@@ -114,10 +116,12 @@ eutrophus) and Streptomyces bikiniensis.}
 		\caption{Alignment Between the Secondary Structure of Alcaligenes eutrophus and Streptomyces bikiniensis.}
 \end{figure}
 
+We run our program on larger RNA sequences as well. We compare the edit distance between 2 rRNAs from two organism named "Marchantia polymorpha Chloroplast" and "Archaeoglobus fulgidus". Both of them have the length over 1000 nucleotides. The test result when the cost of each valid operations is 1 is shown in Figure 5.10. 
+
 \section{Evaluation}
 We empirically evaluate our algorithm with other four state-of-the-art algorithms on Ribonuclease P Database and compare the relevant sub-problems and actual run time to the algorithms proposed in Chapter 2: the algorithm by Zhang and Shasha and its symmetric version always using right paths~\cite{zhang1989simple}. All algorithms are implemented as single-thread applications in C++ and run on a 64-core 3.4GHZ Ubuntu. The source code is available online.
 
-Firstly we compare the number of relevant sub-problem computed by each of the algorithms for a pair of specific RNA secondary structures. Each relevant sub-problems are the constant-time operations that make up the complexity of the algorithm. Then, we mark the actual run time of each algorithms. The evaluation results are shown in Table 5.2.
+Firstly we compare the number of relevant sub-problem computed by each of the algorithms for a pair of specific RNA secondary structures. Each relevant sub-problems are the constant-time operations that make up the complexity of the algorithm. Then, we mark the actual run time of each algorithms. The evaluation results are shown in Table 5.2 and 5.3. As according to our test results, our decomposition strategies on compressed trees is the best strategies compared to other methods, creating the least number of relevant sub-problems. 
 
 \begin{table}
 			\centering
@@ -134,6 +138,32 @@ Firstly we compare the number of relevant sub-problem computed by each of the al
 			\end{tabular}
 		\caption{The Relevant Sub-problem and its Actual Run Time of Each Algorithms}
 \end{table}
+
+\begin{table}
+			\centering
+			\begin{tabular}{l l l}
+				\toprule
+				\textbf{Algorithm} & \textbf{$\#Rel.sub$} &\textbf{Time[sec]}\\
+				\midrule
+				$Zhang-L$ & 41889364 & 3.2\\
+				$Zhang-R$ & 42972591 & 3.3\\
+				$Our\ Algorithm(Before\ Compression)$ & 32254346 & 2.3\\
+				$Zhang-L(Compressed)$ & 17769036 & 0.47\\
+				$Zhang-R(Compressed)$ & 18154025 & 0.51\\
+				$Our\ Algorithm(After\ Compression)$ & 13546825 & 0.34\\
+			\end{tabular}
+		\caption{The Relevant Sub-problem and its Actual Run Time of Each Algorithms}
+\end{table}
+
+
+
+
+\begin{figure}
+		\centering
+		\includegraphics[width=17cm,clip]{Figures/AlignmentResult2}
+		\label{Alignment Between Two RNAs.} 
+		\caption{Alignment Between the Secondary Structure of rRNA from Marchantia polymorpha Chloroplast and Archaeoglobus fulgidus.}
+\end{figure}
 
 
 
