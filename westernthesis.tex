@@ -212,10 +212,14 @@
 \newcommand{\gyear}{\number\year}
 \newcommand{\makecoauthor}{
 %Type information about coauthorship here/
-I would like to acknowlege my imaginary friend, Jummi for doing all the work. 
+
 }
 \newcommand{\makeacknowlege} {
-%Type in acknowlegements here
+First of all, I would like to show my sincere appreciation to my supervisor, Dr. Kaizhong Zhang. Without his insightful guidance, inexhaustible patience and professional dedication, I could not finish this thesis. It is a fruitful and enjoyable experience to work with him. 
+
+Second, I would like to show my gratitude to my parents. Thanks you for your 23-year selfless support and endless love.
+
+Finally, me heartfelt appreciation goes to all my lab-mates and friends. They help me a lot during my master study. 
 }
 \newcommand{\listappendixname}{List of Appendices}
 \newlistof{myappendices}{app}{\listappendixname}
@@ -348,16 +352,18 @@ Chair of the Thesis Examination Board
 %\addcontentsline{toc}{chapter}{Co-Authorship Statement}
 %\coauthor{\makecoauthor}  %comment this out if none
 %\newpage
-%\addcontentsline{toc}{chapter}{Acknowlegements}
-%\acknowlege{\makeacknowlege}	%as above
+\addcontentsline{toc}{chapter}{Acknowlegements}
+\doublespacing
+\acknowlege{\makeacknowlege}	%as above
 \addcontentsline{toc}{chapter}{Abstract}
 \Large\begin{center}\textbf{Abstract}\end{center}\normalsize
 %%  ***  Put your Abstract here.   ***
 %% (150 words for M.Sc. and 350 words for Ph.D.)
 \doublespacing
-An ordered labeled tree is a tree where the left-to-right order among siblings is significant. Given two ordered labeled trees, the tree edit distance is the minimum cost to convert one tree to another. 
+An ordered labeled tree is a tree where the left-to-right order among siblings is significant. Given two ordered labeled trees, the edit distance between them is the minimum cost edit operations that convert one tree to the other.
 
-In this thesis, we present an algorithm for the tree edit distance problem by using the optimal tree decomposition strategy. Besides, the vertical compression applied to trees can significantly reduce the time complexity. We compare our method with other methods. The test result shows that our strategies on compression tree are by far the best decomposition strategy, creating the least number of relevant sub-problems.
+In this thesis, we present an algorithm for the tree edit distance problem by using the optimal tree decomposition strategy. By combining the vertical compression of trees with optimal decomposition we can significantly reduce the running time of the algorithm. We compare our method with other methods both theoretically and experimentally. The test results show that our strategies on compressed trees are by far the best decomposition strategy, creating the least number of relevant sub-problems.
+
 \vfill
 \textbf{Keywords:} ordered labeled tree, tree edit distance, dynamic programming, sequence comparison, tree decomposition, heavy path, RNA secondary structure comparison. 
 \newpage
