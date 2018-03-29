@@ -345,16 +345,9 @@ Chair of the Thesis Examination Board
 \begin{preliminary}
 
 %% This generates the title page from the information given above.
-\maketitle
-\addcontentsline{toc}{chapter}{Certificate of Examination}
-\makecert
-\newpage
-%\addcontentsline{toc}{chapter}{Co-Authorship Statement}
-%\coauthor{\makecoauthor}  %comment this out if none
-%\newpage
-\addcontentsline{toc}{chapter}{Acknowlegements}
-\doublespacing
-\acknowlege{\makeacknowlege}	%as above
+%\maketitle
+%\addcontentsline{toc}{chapter}{Certificate of Examination}
+%\makecert
 \addcontentsline{toc}{chapter}{Abstract}
 \Large\begin{center}\textbf{Abstract}\end{center}\normalsize
 %%  ***  Put your Abstract here.   ***
@@ -366,6 +359,13 @@ In this thesis, we present an algorithm for the tree edit distance problem by us
 
 \vfill
 \textbf{Keywords:} ordered labeled tree, tree edit distance, dynamic programming, sequence comparison, tree decomposition, heavy path, RNA secondary structure comparison. 
+\newpage
+%\addcontentsline{toc}{chapter}{Co-Authorship Statement}
+%\coauthor{\makecoauthor}  %comment this out if none
+%\newpage
+\addcontentsline{toc}{chapter}{Acknowlegements}
+\doublespacing
+\acknowlege{\makeacknowlege}	%as above
 \newpage
 \tableofcontents\newpage
 \newpage
@@ -419,24 +419,27 @@ In this thesis, we present an algorithm for the tree edit distance problem by us
 %\end{appendices}
 
 %CV only relevant stuff... not full CV.
-%\addcontentsline{toc}{chapter}{Curriculum Vitae}
-%\chapter*{Curriculum Vitae}
-%\begin{table}[ht]
-%\begin{tabular}{ll}
-%\textbf{Name:} & \firstname{} \lastname\\\\
-%\textbf{Post-Secondary} & La La School\\
-%\textbf{Education and}& La La Land\\
-%\textbf{Degrees:}& 1996 - 2000 M.A.\\\\
-%& University of Western Ontario\\
-%& London, ON\\
-%& 2008 - 2012 Ph.D.\\\\
+\addcontentsline{toc}{chapter}{Curriculum Vitae}
+\chapter*{Curriculum Vitae}
+\begin{table}[ht]
+\begin{tabular}{ll}
+\textbf{Name:} & \firstname{} \lastname\\\\
+\textbf{Post-Secondary} & Sun Yat-sen University\\
+\textbf{Education and}& Guangzhou, Guangdong, China\\
+\textbf{Degrees:}& 2012 - 2016 B.S.\\\\
+& University of Western Ontario\\
+& London, ON\\
+& 2016 - 2018 M.S.\\\\
 %\textbf{Honours and}& NSERC PGS M\\
 %\textbf{Awards:}& 2006-2007\\\\
-%\textbf{Related Work}& Teaching Assistant\\
-%\textbf{Experience:}& The University of Western Ontario\\
-%& 2008 - 2012\\
-%\end{tabular}
-%\end{table}
+\textbf{Related Work}& Teaching Assistant\\
+\textbf{Experience:}& The University of Western Ontario\\
+& 2016 - 2017\\
+& Research Assistant\\
+& University of Western Ontario\\
+& 2016 - 2017\\
+\end{tabular}
+\end{table}
 %\subsubsection*{Publications:}
 %La La
 \end{document}

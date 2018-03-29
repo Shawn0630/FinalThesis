@@ -5,7 +5,7 @@ This chapter introduces the tree editing problem and the related algorithms. The
 \section{String Edit Distance Problem}
 Before we introduce the tree edit distance problem, we first describe the string edit distance problem because the string edit distance problem can be seen as a special case of the tree edit distance problem.
 
-First introduced by Wagner and Fischer~\cite{wagner1974string}, the string edit distance problem is to find the minimum cost to change one string$S_1$ into the other$S_2$ by a sequence of edit steps. The string edit distance problem can be solved by dynamic programming. The string edit distance $d(S_1, S_2)$ can be computed by Equation 1 where $u$ and $v$ are both the last elements or the first element of string $S_1$ and $S_2$. The cost of the three basic edit operations( substitution, deletion and insertion) are $\delta(u, v)$, $\delta(u, \varnothing)$ and $\delta(\varnothing, v)$.
+First introduced by Wagner and Fischer~\cite{wagner1974string}, the string edit distance problem is to find the minimum cost to change one string$S_1$ into the other$S_2$ by a sequence of edit steps. The string edit distance problem can be solved by dynamic programming. The string edit distance $d(S_1, S_2)$ can be computed by Equation 2.1  where $u$ and $v$ are both the last elements or the first element of string $S_1$ and $S_2$. The cost of the three basic edit operations( substitution, deletion and insertion) are $\delta(u, v)$, $\delta(u, \varnothing)$ and $\delta(\varnothing, v)$.
 
 \begin{definition}
 (String Edit Distance)
@@ -32,7 +32,7 @@ Analogous to the string edit distance problem, the basic operations are substitu
 
 In this thesis, we focus on the general editing problem, which means no additional constraints are added on the order of insertions and deletions. In other words, insertions and deletions can take place in any order at any node within the tree. However, the substitution operation should satisfy the following constraints:
 
-1. One-to-one relationship: A node in one tree can be replaced at most one node in another tree. 
+1. One-to-one relationship: A node in one tree can be replaced by at most one node in another tree. 
 
 2. Sibling order is preserved: For any two substitution steps($t_1[i] \to t_2[j]$) and ($t_1[i'] \to t_2[j']$), $t_1[i]$ is to the left of $t_1[i']$ if and only if $t_2[j]$ is an ancestor of $t_2[j']$.
 
@@ -54,7 +54,7 @@ Firstly, trees and forests should be clearly defined as they are objects in algo
 
 \begin{definition}
 (Tree and forests)
-A tree is a node connected to an ordered sequence of disjoint trees. Such a sequence of tree is called a forest~\cite{dulucq2005decomposition}. 
+A node can be a tree. A tree is a node connected to an ordered sequence of disjoint trees. Such a sequence of tree is called a forest~\cite{dulucq2005decomposition}. 
 \end{definition}
 
 In this thesis, we only consider ordered and labeled tree. The word forest may be used for denoting forests, trees as well as a node which are reduced from a tree after a series of deletions. 
@@ -86,7 +86,7 @@ Some classical notations for trees and forests are introduced.
 \section{Recursive Decomposition Solution}
 Before we study the recursive decomposition in the tree edit distance problem, we recall the the recursive decomposition in the string edit distance problem. The string edit distance problem can be solved by measuring the distance for all pairs of prefixes or suffixes of two strings.
 
-The edit distance between two strings $S_1$ and $S_2$ can be computed by equation as follows:
+The edit distance between two strings $S_1$ and $S_2$ can be computed by the following equation:
 \begin{align}
 d(S_1, S_2) = min \begin{cases}
 	  	d(S_1 - u , S_2) + \delta(u, \varnothing) \\ 
@@ -99,7 +99,7 @@ It is a right decomposition if and only if $u$ and $v$ are both the last element
 
 Analogous to the string edit distance problem, the tree edit distance can be solved in a recursive decomposition way. To compute the tree edit distance,  the roots of the trees are the first elements to decompose. The Equation 2.2 computes the tree-to-tree distance.
 
-Let $T_1$ and $T_2$ are both trees, 
+Let $T_1$ and $T_2$ be two trees, 
 \begin{align}
 d(T_1, T_2) = min \begin{cases}
 	  	d(T_1 - r(T_1) , T_2) + \delta(r(T_1), \varnothing) \\ 
@@ -108,7 +108,7 @@ d(T_1, T_2) = min \begin{cases}
     \end{cases}
 \end{align}
 
-The decomposition to trees create sub-problems for forests($T_1 - r(T_1), T_2 - r(T_2)$). Similar to the Equation 2.1 for the calculation of the string edit distance, let $F_1$ and $F_2$ are both forests and $u$ and $v$ are nodes in forest $F_1$ and $F_2$ respectively, the forest-to-forest distance can be computed by equation as follows: 
+The decomposition to trees create sub-problems for forests($T_1 - r(T_1), T_2 - r(T_2)$). Similar to the Equation 2.1 for the calculation of the string edit distance, let $F_1$ and $F_2$ be two forests and $u$ and $v$ be two nodes in forest $F_1$ and $F_2$ respectively, the forest-to-forest distance can be computed by equation as follows: 
 \begin{align}
 d(F_1, F_2) = min \begin{cases}
 	  	d(F_1 - u , F_2) + \delta(u, \varnothing) \\ 
@@ -617,11 +617,12 @@ We conclude the state of the art algorithms in tree edit distance problem in Tab
 			\centering
 			\begin{tabular}{l l l l}
 				\toprule
-				\textbf{} & \textbf{Time} & \textbf{Space} & \textbf{Comments}\\
+				\textbf{} & \textbf{Time(Worse Case)} & \textbf{Space} & \textbf{Comments}\\
 
 				\midrule
 				Tai(1979) &  $\mathcal{O}(n^6)$ & $\mathcal{O}(n^6)$ & first algorithm\\
-				Zhang\&Shasha(1989) & $\mathcal{O}(n^2\log^2(n))$ & $\mathcal{O}(n^2)$ & efficient for balanced tree \\
+				Simple Algorithm & $\mathcal{O}(n^4)$ & $\mathcal{O}(n^4)$ & first post-order enumeration algorithm\\
+				Zhang\&Shasha(1989) & $\mathcal{O}(n^4)$ & $\mathcal{O}(n^2)$ & efficient for balanced tree \\
 				Klein(1998) &  $\mathcal{O}(n^3\log(n))$ & $\mathcal{O}(n^2)$ & with no consideration on the shape of the smaller tree\\
 				Demaine et al.(2009) &  $\mathcal{O}(n^3)$ & $\mathcal{O}(n^2)$ & worse case is frequent\\
 			\end{tabular}

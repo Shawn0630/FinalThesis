@@ -1,4 +1,5 @@
 \doublespacing
+\allowdisplaybreaks
 \chapter{A new algorithm}
 Our new algorithm to compute the tree edit distance is introduced in this chapter. It is implemented in C++. The new algorithm consists of two main steps: finding the root-leaf decomposition path and bottom-down enumeration for distance computation.
 \section{Finding the Optimal Root-leaf Decomposition Path}
@@ -203,26 +204,26 @@ Let(A, B) be a pair of trees, and the root-leaf is on either tree.
 \begin{enumerate}
 \item if A and B is reduced to a single node 
 \begin{align*}
-Free(A, B) &= LeftA(A, B) = LeftB(A, B)\\ 
+Free(A, B) &= LeftA(A, B) = LeftB(A, B)\\
 &= RightA(A, B) = RightB(A, B)\\
 &= AllA(A, B) = AllB(A, B) = 1\\
 \end{align*}
 \item if A is reduced to a single node, and B is a tree of the form $B = l(B')$, where $B'$ is a sub-tree.
-\begin{align*}
-Free(A, B) &= min \begin{cases}
+\begin{eqnarray*}
+&&Free(A, B) = min \begin{cases}
 			RightB(A, B') + \#right(A)\\
 			LeftB(A, B') + \#left(A)\\
 			\end{cases}\\
-LeftA(A, B) &= \#left(B)\\
-LeftB(A, B) &= LeftB(A, B') + \#left(A)\\
-RightA(A, B) &= \#right(B)\\
-RightB(A, B) &= RightB(A, B') + \#right(B)\\
-AllA(A, B) &= \#spec(B)\\
-AllB(A, B) &= AllB(A, B') + \#spec(A)\\
-\end{align*}
+&&LeftA(A, B) = \#left(B)\\
+&&LeftB(A, B) = LeftB(A, B') + \#left(A)\\
+&&RightA(A, B) = \#right(B)\\
+&&RightB(A, B) = RightB(A, B') + \#right(B)\\
+&&AllA(A, B) = \#spec(B)\\
+&&AllB(A, B) = AllB(A, B') + \#spec(A)\\
+\end{eqnarray*}
 \item if A is reduced to a single node, and B is a tree of the form $B = l(B_1 \comp \cdots \comp B_n)$, where $B_1, B_2 \cdots B_n$ are sub-trees.
-\begin{align*}
-Free(A, B) &= min \begin{cases}
+\begin{eqnarray*}
+&&Free(A, B) = min \begin{cases}
 			\sum_{i>1}Free(A, B_i) + LeftB(A, B_1) + \#left(A) * \left\vert  B - B_1 \right\vert \\
 			\sum_{i \neq j}Free(A, B_i) + AllB(A, B_j) \\
 			\ \ \ \ \ + min \begin{cases}
@@ -231,16 +232,16 @@ Free(A, B) &= min \begin{cases}
 			\end{cases}\\
 			\sum_{i < n}Free(A, B_i) + RightB(A, B_n) + \#right(A) * \left\vert B - B_n \right\vert \\
 			\end{cases}\\
-LeftA(A, B) &= \#left(B)\\
-LeftB(A, B) &= \sum_{i > 1}Free(A, B_i) + LeftB(A, B_1) + \#left(A) * (\left\vert B - B_1 \right\vert)\\
-RightA(A, B) &= \#right(B)\\
-RightB(A, B) &= \sum_{i < n}Free(A, B_i) + RightB(A, B_n) + \#left(B) * (\left\vert B - B_n \right\vert)\\
-AllA(A, B) &= \#spec(B)\\
-AllB(A, B) &= min \sum_{i \neq j}Free(A, B_i) + AllB(A, B_j) + \#spec(A) * (\left\vert A - A_j \right\vert)\\
-\end{align*}
+&&LeftA(A, B) = \#left(B)\\
+&&LeftB(A, B) = \sum_{i > 1}Free(A, B_i) + LeftB(A, B_1) + \#left(A) * (\left\vert B - B_1 \right\vert)\\
+&&RightA(A, B) = \#right(B)\\
+&&RightB(A, B) = \sum_{i < n}Free(A, B_i) + RightB(A, B_n) + \#left(B) * (\left\vert B - B_n \right\vert)\\
+&&AllA(A, B) = \#spec(B)\\
+&&AllB(A, B) = min \sum_{i \neq j}Free(A, B_i) + AllB(A, B_j) + \#spec(A) * (\left\vert A - A_j \right\vert)\\
+\end{eqnarray*}
 \item if A is a tree of the form $A = l(A')$, and B is a tree of the form $B = l(B_1 \comp \cdots \comp B_n)$, where $B_1, B_2 \cdots B_n$ are sub-trees.
-\begin{align*}
-Free(A, B) &= min \begin{cases}
+\begin{eqnarray*}
+&&Free(A, B) = min \begin{cases}
 			Free(A', B) + min \begin{cases}
 			\#left(B) \\
 			\#right(B) \\
@@ -253,16 +254,16 @@ Free(A, B) &= min \begin{cases}
 			\end{cases}\\
 			\sum_{i<n}Free(A, B_i) + RightB(A, B_n) + \#right(A) * (\left\vert B - B_n \right\vert)\\  
 			\end{cases}\\
-LeftA(A, B) &= LeftA(A', B) + \#left(B)\\
-LeftB(A, B) &= \sum_{i>1}Free(A, B_i) + LeftB(A, B_1) + \#left(A)* (\left\vert B - B_1 \right\vert)\\
-RightA(A, B) &= RightA(A', B) + \#right(B)\\
-RightB(A, B) &= \sum_{i<n}Free(A, B_i) + RightB(A, B_n) + \#right(A) * (\left\vert B - B_n \right\vert)\\
-AllA(A, B) &= AllA(A', B) + \#spec(B)\\
-AllB(A, B) &= min \sum_{i \neq j}Free(A, B_i) + AllB(A, B_j) + \#spec(A) * (\left\vert B - B_j \right\vert)\\	
-\end{align*}
+&&LeftA(A, B) = LeftA(A', B) + \#left(B)\\
+&&LeftB(A, B) = \sum_{i>1}Free(A, B_i) + LeftB(A, B_1) + \#left(A)* (\left\vert B - B_1 \right\vert)\\
+&&RightA(A, B) = RightA(A', B) + \#right(B)\\
+&&RightB(A, B) = \sum_{i<n}Free(A, B_i) + RightB(A, B_n) + \#right(A) * (\left\vert B - B_n \right\vert)\\
+&&AllA(A, B) = AllA(A', B) + \#spec(B)\\
+&&AllB(A, B) = min \sum_{i \neq j}Free(A, B_i) + AllB(A, B_j) + \#spec(A) * (\left\vert B - B_j \right\vert)\\	
+\end{eqnarray*}
 \item if A is a tree of the form $A = l(A_1 \comp \cdots \comp A_n)$, and B is a tree of the form $B = l'(B_1 \comp \cdots \comp B_n)$
-\begin{align*}
-Free(A, B) &= min \begin{cases}
+\begin{eqnarray*}
+&&Free(A, B) = min \begin{cases}
 			\sum_{i>1}Free(A_i, B) + LeftA(A_1, B) + \#left(B)*(\left\vert A - A_1 \right\vert) \\
 			\sum_{i \neq j}Free(A_i, B) + AllA(A_j, B) \\
 			\ \ \ \ + min\begin{cases}
@@ -278,13 +279,13 @@ Free(A, B) &= min \begin{cases}
 			\end{cases}\\
 			\sum_{i<n}Free(A, B_i) + RightB(A, B_n) + \#right(A)*(\left\vert B - B_n \right\vert)\\ 
 			\end{cases}\\
-LeftA(A, B) &= \sum_{i>1}Free(A_i, B) + LeftA(A_1, B) + \#left(B) * (\left\vert A - A_1 \right\vert)\\
-LeftB(A, B) &= \sum_{i>1}Free(A, B_i) + LeftB(A, B_1) + \#left(A) * (\left\vert B - B_1 \right\vert)\\
-RightA(A, B) &= \sum_{i<n}Free(A_i, B) + RightA(A_n, B) + \#right(B) * (\left\vert A - A_n \right\vert)\\
-RightB(A, B) &= \sum_{i<n}Free(A, B_i) + RightA(A, B_n) + \#right(A) * (\left\vert B - B_n \right\vert)\\
-AllA(A, B) &= min \sum_{i \neq j}Free(A_i, B) + AllA(A_j, B) + \#spec(B) * (\left\vert A - A_j \right\vert)\\
-AllB(A, B) &= min \sum_{i \neq j}Free(A, B_i) + AllB(A, B_j) + \#spec(A) * (\left\vert B - B_j \right\vert)\\
-\end{align*}
+&&LeftA(A, B) = \sum_{i>1}Free(A_i, B) + LeftA(A_1, B) + \#left(B) * (\left\vert A - A_1 \right\vert)\\
+&&LeftB(A, B) = \sum_{i>1}Free(A, B_i) + LeftB(A, B_1) + \#left(A) * (\left\vert B - B_1 \right\vert)\\
+&&RightA(A, B) = \sum_{i<n}Free(A_i, B) + RightA(A_n, B) + \#right(B) * (\left\vert A - A_n \right\vert)\\
+&&RightB(A, B) = \sum_{i<n}Free(A, B_i) + RightA(A, B_n) + \#right(A) * (\left\vert B - B_n \right\vert)\\
+&&AllA(A, B) = min \sum_{i \neq j}Free(A_i, B) + AllA(A_j, B) + \#spec(B) * (\left\vert A - A_j \right\vert)\\
+&&AllB(A, B) = min \sum_{i \neq j}Free(A, B_i) + AllB(A, B_j) + \#spec(A) * (\left\vert B - B_j \right\vert)\\
+\end{eqnarray*}
 \end{enumerate}
 \end{theorem}
 \subsection{Dynamic Programming Implementation}
